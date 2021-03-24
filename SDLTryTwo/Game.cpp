@@ -7,7 +7,7 @@ Game::Game(char* _title)
 
 Game::~Game()
 {
-	delete img;
+	delete backGroundImg;
 
 	delete window;
 }
@@ -57,13 +57,16 @@ int Game::InitSDL()
 
 int Game::InitRenderer()
 {
-	window->sdl_Renderer = SDL_CreateRenderer(window->sdl_Window, -1, SDL_RENDERER_ACCELERATED);
-	if (window->sdl_Renderer == NULL)
+	if (window->renderer == NULL)
+		window->renderer = new Renderer();
+
+	window->renderer->sdl_Renderer = SDL_CreateRenderer(window->sdl_Window, -1, SDL_RENDERER_ACCELERATED);
+	if (window->renderer->sdl_Renderer == NULL)
 	{
 		printf("Renderer could not be created! SDL Error: %s\n", SDL_GetError());
 		return -1;
 	}
-	SDL_SetRenderDrawColor(window->sdl_Renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+	SDL_SetRenderDrawColor(window->renderer->sdl_Renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 
 	return 0;
 }
@@ -86,12 +89,13 @@ int Game::Start()
 	window->FillWindow(NULL, SDL_MapRGB(window->sdl_ScreenSurface->format, 0xFF, 0xFF, 0xFF));
 	window->UpdateWindow();
 
-	img = new Image("../Img/Wall.png", window->sdl_Renderer);
-	/*
-	window->ApplySdlImage(img);
+	backGroundImg = new Image("../Img/Wall.png", window->renderer->sdl_Renderer);
+	
+	window->renderer->RenderSdlImage(backGroundImg, window->width / 2, window->height / 2);
 
 	window->UpdateWindow();
-	*/
+	
+	window->renderer->SetBackGroundColor(255, 0, 0, 1);
 	return 0;
 }
 
@@ -121,14 +125,16 @@ void Game::Update()
 				}
 			}
 		}
-		
+
+		/*
 		//Apply the image stretched
 		window->ClearScreen();
 
 		window->ApplySdlImage(img);
-		//Update the surface
+
 		window->UpdateWindow();
-		//SDL_UpdateWindowSurface(window->sdl_Window);
 		
+		*/
+
 	}
 }

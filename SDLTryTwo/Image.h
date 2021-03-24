@@ -8,6 +8,7 @@ class Image
 {
 private:
 	SDL_Texture* LoadTexture(const char* _path, SDL_Renderer* screenSurface);
+	int width, height;
 public:
 	SDL_Texture* sdl_ImageTexture;
 
@@ -15,4 +16,7 @@ public:
 	~Image();
 
 	int LoadImage(const char* _path, SDL_Renderer* screenSurface);
+	int GetWidth();
+	int GetHeight();
+	void FreeTexture();
 };

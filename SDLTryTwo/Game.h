@@ -8,7 +8,8 @@ private:
 	int InitPng();
 public:
 	Window* window;
-	Image* img;
+	Image* backGroundImg;
+	Image* playerImg;
 	char* title;
 	Game(char* _title);
 	~Game();

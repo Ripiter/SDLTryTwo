@@ -13,13 +13,13 @@ Window::Window(int _width, int _height)
 Window::~Window() {
 
 	//Destroy window
-	SDL_DestroyRenderer(sdl_Renderer);
+	SDL_DestroyRenderer(renderer->sdl_Renderer);
 	SDL_DestroyWindow(sdl_Window);
 }
 
 void Window::ClearScreen()
 {
-	SDL_RenderClear(sdl_Renderer);
+	SDL_RenderClear(renderer->sdl_Renderer);
 }
 
 void Window::SetSdlWindow(SDL_Window* _sdlWindow)
@@ -36,10 +36,5 @@ void Window::FillWindow(SDL_Rect* rect, Uint32 color)
 void Window::UpdateWindow()
 {
 	//SDL_UpdateWindowSurface(sdl_Window);
-	SDL_RenderPresent(sdl_Renderer);
-}
-
-void Window::ApplySdlImage(Image* img)
-{
-	SDL_RenderCopy(sdl_Renderer, img->sdl_ImageTexture, NULL, NULL);
+	SDL_RenderPresent(renderer->sdl_Renderer);
 }
