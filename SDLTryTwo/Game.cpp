@@ -89,13 +89,13 @@ int Game::Start()
 	window->FillWindow(NULL, SDL_MapRGB(window->sdl_ScreenSurface->format, 0xFF, 0xFF, 0xFF));
 	window->UpdateWindow();
 
-	backGroundImg = new Image("../Img/Wall.png", window->renderer->sdl_Renderer);
-	
-	window->renderer->RenderSdlImage(backGroundImg, window->width / 2, window->height / 2);
 
-	window->UpdateWindow();
+	backGroundImg = new Image("../Img/Wall.png", window->renderer->sdl_Renderer);
+	playerImg = new Image("../Img/PersonWithSaber.bmp", window->renderer->sdl_Renderer);
+
+
+	window->renderer->SetBackGroundColor(0, 0, 0, 1);
 	
-	window->renderer->SetBackGroundColor(255, 0, 0, 1);
 	return 0;
 }
 
@@ -126,15 +126,13 @@ void Game::Update()
 			}
 		}
 
-		/*
-		//Apply the image stretched
 		window->ClearScreen();
+		window->renderer->RenderImage(backGroundImg, 0, 0, window->width, window->height);
 
-		window->ApplySdlImage(img);
+		window->renderer->RenderImage(playerImg, window->width / 2, window->height / 2, playerImg->GetWidth() / 2, playerImg->GetHeight() / 2);
 
 		window->UpdateWindow();
-		
-		*/
+
 
 	}
 }

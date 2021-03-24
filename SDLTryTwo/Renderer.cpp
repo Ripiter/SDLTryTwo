@@ -1,10 +1,16 @@
 #include "Renderer.h"
 
 
-void Renderer::RenderSdlImage(Image* img, int x, int y)
+void Renderer::RenderImage(Image* img, int x, int y)
 {
 	//Set rendering space and render to screen
 	SDL_Rect renderQuad = { x, y, img->GetWidth(), img->GetHeight() };
+	SDL_RenderCopy(sdl_Renderer, img->sdl_ImageTexture, NULL, &renderQuad);
+}
+void Renderer::RenderImage(Image* img, int x, int y, int w, int h)
+{
+	//Set rendering space and render to screen
+	SDL_Rect renderQuad = { x, y, w, h };
 	SDL_RenderCopy(sdl_Renderer, img->sdl_ImageTexture, NULL, &renderQuad);
 }
 
