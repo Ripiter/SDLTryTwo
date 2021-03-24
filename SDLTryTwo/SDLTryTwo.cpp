@@ -13,7 +13,7 @@ int main(int argc, char* args[])
 	int status = 0;
 
 	status += game->InitSDL();
-	status += game->InitWindow();
+	status += game->InitWindow(800, 600);
 	
 	status += game->Start();
 

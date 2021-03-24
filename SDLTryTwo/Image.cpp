@@ -49,6 +49,22 @@ void Image::FreeTexture()
 	}
 }
 
+void Image::SetColor(int red, int green, int blue)
+{
+	SDL_SetTextureColorMod(sdl_ImageTexture, red, green, blue);
+}
+
+void Image::SetAlpha(int alpha)
+{
+	SDL_SetTextureAlphaMod(sdl_ImageTexture, alpha);
+}
+
+void Image::SetBlendMode(SDL_BlendMode blendMode)
+{
+	//Set blending function
+	SDL_SetTextureBlendMode(sdl_ImageTexture, blendMode);
+}
+
 
 SDL_Texture* Image::LoadTexture(const char* _path, SDL_Renderer* _renderer)
 {
@@ -79,3 +95,4 @@ SDL_Texture* Image::LoadTexture(const char* _path, SDL_Renderer* _renderer)
 
 	return optimizedSurface;
 }
+

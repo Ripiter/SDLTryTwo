@@ -14,6 +14,22 @@ void Renderer::RenderImage(Image* img, int x, int y, int w, int h)
 	SDL_RenderCopy(sdl_Renderer, img->sdl_ImageTexture, NULL, &renderQuad);
 }
 
+void Renderer::RenderImage(Image* img, int x, int y, SDL_Rect* clip)
+{
+	//Set rendering space and render to screen
+	SDL_Rect renderQuad = { x, y, img->GetWidth(), img->GetHeight()};
+
+	//Set clip rendering dimensions
+	if (clip != NULL)
+	{
+		renderQuad.w = clip->w;
+		renderQuad.h = clip->h;
+	}
+
+	//Render to screen
+	SDL_RenderCopy(sdl_Renderer, img->sdl_ImageTexture, clip, &renderQuad);
+}
+
 void Renderer::DrawFillSquare(SDL_Rect* transform, Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 {
 	SDL_SetRenderDrawColor(sdl_Renderer, 0x00, 0xFF, 0x00, 0xFF);

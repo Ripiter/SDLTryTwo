@@ -1,6 +1,6 @@
 #pragma once
 #include "Window.h"
-
+#include "Animation.h"
 class Game
 {
 private:
@@ -10,6 +10,8 @@ public:
 	Window* window;
 	Image* backGroundImg;
 	Image* playerImg;
+	Animation* playerAnimation;
+
 	char* title;
 	Game(char* _title);
 	~Game();
