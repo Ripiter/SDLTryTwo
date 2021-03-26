@@ -160,10 +160,6 @@ void Game::Update()
 		}
 		window->ClearScreen();
 
-		//SDL_Rect currentClip = player->playerAnimation->imagesTransform->at(frame / 4);
-		//int x = (window->width - currentClip.w) / 2;
-		//int y = (window->height - currentClip.h) / 2;
-		//window->renderer->RenderImage(player->entityImg, (window->width - currentClip.w) / 2, (window->height - currentClip.h) / 2, &currentClip);
 		player->playerAnimation->Update();
 		window->renderer->RenderAnimation(player->playerAnimation);
 
