@@ -3,7 +3,6 @@
 
 Image::Image(const char* _path, SDL_Renderer* _renderer)
 {
-	sdl_ImageTexture = NULL;
 	LoadImage(_path, _renderer);
 }
 

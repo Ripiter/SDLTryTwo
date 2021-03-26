@@ -3,12 +3,14 @@ Game::Game(char* _title)
 {
 	window = NULL;
 	title = _title;
+	player = nullptr;
+	backGroundImg = nullptr;
 }
 
 Game::~Game()
 {
 	delete backGroundImg;
-	delete playerImg;
+	delete player;
 
 
 	delete window;
@@ -41,7 +43,7 @@ int Game::InitWindow(int _width, int _height)
 {
 	if (window == NULL)
 		window = new Window(_width, _height);
-	
+
 	return InitWindow();
 }
 
@@ -97,12 +99,19 @@ int Game::Start()
 	backGroundImg->SetBlendMode(SDL_BLENDMODE_BLEND);
 	*/
 
-	playerImg = new Image("../img/foo.png", window->renderer->sdl_Renderer);
+	SDL_Rect* playerPos = new SDL_Rect();
+	playerPos->x = window->width / 2;
+	playerPos->y = window->height / 2;
+	Image* img = new Image("../img/foo.png", window->renderer->sdl_Renderer);
+	player = new Player(_strdup("Player"), img, playerPos);
+	player->playerAnimation = new Animation(player, player->entityImg, 4, 64);
 
-	playerAnimation = new Animation(playerImg, 4, 64);
+
 
 	window->renderer->SetBackGroundColor(255, 0, 0, 1);
-	
+
+
+
 	return 0;
 }
 
@@ -128,20 +137,38 @@ void Game::Update()
 					printf("Pressed escape");
 					quit = true;
 				}
+
+				if (e.key.keysym.sym == SDLK_a) {
+					player->position->x -= 10;
+				}
+				if (e.key.keysym.sym == SDLK_d) {
+					player->position->x += 10;
+				}
+				if (e.key.keysym.sym == SDLK_a) {
+					player->position->x -= 10;
+				}
+				if (e.key.keysym.sym == SDLK_d) {
+					player->position->x += 10;
+				}
+				if (e.key.keysym.sym == SDLK_w) {
+					player->position->y -= 10;
+				}
+				if (e.key.keysym.sym == SDLK_s) {
+					player->position->y += 10;
+				}
 			}
+		}
 		window->ClearScreen();
 
-		SDL_Rect* currentClip = &playerAnimation->imagesTransform->at(frame / 4);
-		window->renderer->RenderImage(playerImg, (window->width - currentClip->w) / 2, (window->height - currentClip->h) / 2, currentClip);
+		//SDL_Rect currentClip = player->playerAnimation->imagesTransform->at(frame / 4);
+		//int x = (window->width - currentClip.w) / 2;
+		//int y = (window->height - currentClip.h) / 2;
+		//window->renderer->RenderImage(player->entityImg, (window->width - currentClip.w) / 2, (window->height - currentClip.h) / 2, &currentClip);
+		player->playerAnimation->Update();
+		window->renderer->RenderAnimation(player->playerAnimation);
 
 		window->UpdateWindow();
 
-		++frame;
-
-		//Cycle animation
-		if (frame / 4 >= playerAnimation->frames)
-		{
-			frame = 0;
-		}
+		
 	}
 }

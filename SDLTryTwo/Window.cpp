@@ -33,6 +33,7 @@ void Window::FillWindow(SDL_Rect* rect, Uint32 color)
 	SDL_FillRect(sdl_ScreenSurface, rect, color);
 }
 
+
 void Window::UpdateWindow()
 {
 	//SDL_UpdateWindowSurface(sdl_Window);
