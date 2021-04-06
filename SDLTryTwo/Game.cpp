@@ -99,11 +99,8 @@ int Game::Start()
 	backGroundImg->SetBlendMode(SDL_BLENDMODE_BLEND);
 	*/
 
-	SDL_Rect* playerPos = new SDL_Rect();
-	playerPos->x = window->width / 2;
-	playerPos->y = window->height / 2;
-	Image* img = new Image("../img/foo.png", window->renderer->sdl_Renderer);
-	player = new Player(_strdup("Player"), img, playerPos);
+	Image* img = new Image("../img/Arrow.png", window->renderer->sdl_Renderer);
+	player = new Player(_strdup("Player"), img, window->width / 2, window->height / 2);
 	player->playerAnimation = new Animation(player, player->entityImg, 4, 64);
 
 
@@ -117,8 +114,6 @@ int Game::Start()
 
 void Game::Update()
 {
-
-	int frame = 0;
 	//While application is running
 	while (!quit)
 	{
@@ -129,6 +124,7 @@ void Game::Update()
 			quit = true;
 		}
 
+		
 		player->Update();
 		window->ClearScreen();
 

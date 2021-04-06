@@ -7,6 +7,7 @@ public:
 	Image* entityImg = nullptr;
 	RenderEntity();
 	RenderEntity(char* _entityName, Image* _entityImg, SDL_Rect* _entityPosition);
+	RenderEntity(char* _entityName, Image* _entityImg, float x, float y);
 	~RenderEntity();
 
 };

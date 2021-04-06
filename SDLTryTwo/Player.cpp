@@ -6,6 +6,11 @@ Player::Player(char* _entityName, Image* _img, SDL_Rect* _position) : RenderEnti
 
 }
 
+Player::Player(char* _entityName, Image* _img, float _x, float _y) : RenderEntity::RenderEntity(_entityName, _img, _x, _y)
+{
+
+}
+
 Player::~Player()
 {
 	delete playerAnimation;
