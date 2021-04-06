@@ -2,6 +2,7 @@
 #include "Window.h"
 #include "Animation.h"
 #include "Player.h"
+#include "Input.h"
 class Game
 {
 private:

@@ -117,47 +117,19 @@ int Game::Start()
 
 void Game::Update()
 {
-	SDL_Event e;
 
 	int frame = 0;
 	//While application is running
 	while (!quit)
 	{
-		//Handle events on queue
-		while (SDL_PollEvent(&e) != 0)
-		{
-			if (e.type == SDL_QUIT)
-			{
-				quit = true;
-			}
-			// user pressed button
-			if (e.type == SDL_KEYDOWN)
-			{
-				if (e.key.keysym.sym == SDLK_ESCAPE) {
-					printf("Pressed escape");
-					quit = true;
-				}
+		Input::UpdateKey();
 
-				if (e.key.keysym.sym == SDLK_a) {
-					player->position->x -= 10;
-				}
-				if (e.key.keysym.sym == SDLK_d) {
-					player->position->x += 10;
-				}
-				if (e.key.keysym.sym == SDLK_a) {
-					player->position->x -= 10;
-				}
-				if (e.key.keysym.sym == SDLK_d) {
-					player->position->x += 10;
-				}
-				if (e.key.keysym.sym == SDLK_w) {
-					player->position->y -= 10;
-				}
-				if (e.key.keysym.sym == SDLK_s) {
-					player->position->y += 10;
-				}
-			}
+		if (Input::GetButtonDown(InputKey::escape)) {
+			printf("Pressed escape");
+			quit = true;
 		}
+
+		player->Update();
 		window->ClearScreen();
 
 		player->playerAnimation->Update();

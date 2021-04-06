@@ -8,5 +8,6 @@ public:
 	char* entityName;
 	Entity();
 	Entity(char* _entityName ,SDL_Rect* _position);
+	virtual void Update() = 0;
 };
 
