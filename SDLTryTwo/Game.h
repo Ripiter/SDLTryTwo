@@ -12,6 +12,7 @@ public:
 	Window* window;
 	Image* backGroundImg;
 	Player* player;
+	Image* imageTxt;
 
 	char* title;
 	Game(char* _title);
@@ -21,6 +22,7 @@ public:
 	int InitWindow(int _width, int _height);
 	int InitSDL();
 	int InitRenderer();
+	int InitText();
 	int Start();
 	void Update();
 };

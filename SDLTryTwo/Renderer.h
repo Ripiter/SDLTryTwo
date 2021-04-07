@@ -1,6 +1,8 @@
 #pragma once
 #include <SDL.h>
 #include "Animation.h"
+#include "Text.h"
+
 class Renderer
 {
 public:
@@ -8,9 +10,7 @@ public:
 
 	void RenderImage(Image* img, int x, int y);
 	void RenderImage(Image* img, int x, int y, int w, int h);
-	void RenderImage(Image* img, int x, int y, SDL_Rect* clip);
-	void RenderImage(Image* img, int x, int y, SDL_Rect* clip, double angle, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE);
-
+	void RenderImage(Image* img, int x, int y, SDL_Rect* clip, double angle = 0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE);
 
 	void RenderCustomEntity(RenderEntity* _entity);
 	void RenderAnimation(Animation* _animation);

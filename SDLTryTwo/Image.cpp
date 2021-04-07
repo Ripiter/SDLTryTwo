@@ -6,10 +6,14 @@ Image::Image(const char* _path, SDL_Renderer* _renderer)
 	LoadImage(_path, _renderer);
 }
 
+Image::Image(Text* _text, SDL_Renderer* renderer)
+{
+	LoadText(_text, renderer);
+}
+
 Image::~Image()
 {
 	FreeTexture();
-
 	IMG_Quit();
 }
 
@@ -93,5 +97,38 @@ SDL_Texture* Image::LoadTexture(const char* _path, SDL_Renderer* _renderer)
 	}
 
 	return optimizedSurface;
+}
+
+SDL_Texture* Image::LoadText(Text* text, SDL_Renderer* _renderer)
+{
+	//Get rid of preexisting texture
+	FreeTexture();
+
+	//Render text surface
+	SDL_Surface* textSurface = TTF_RenderText_Solid(text->font, text->text.c_str(), text->color);
+	if (textSurface == NULL)
+	{
+		printf("Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError());
+	}
+	else
+	{
+		//Create texture from surface pixels
+		sdl_ImageTexture = SDL_CreateTextureFromSurface(_renderer, textSurface);
+		if (sdl_ImageTexture == NULL)
+		{
+			printf("Unable to create texture from rendered text! SDL Error: %s\n", SDL_GetError());
+		}
+		else
+		{
+			//Get image dimensions
+			width = textSurface->w;
+			height = textSurface->h;
+		}
+
+		//Get rid of old surface
+		SDL_FreeSurface(textSurface);
+	}
+
+	return sdl_ImageTexture;
 }
 

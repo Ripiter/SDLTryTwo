@@ -14,7 +14,12 @@ int main(int argc, char* args[])
 
 	status += game->InitSDL();
 	status += game->InitWindow(800, 600);
-	
+	status += game->InitText();
+	if (status != 0)
+	{
+		printf("Error with code " + status);
+	}
+
 	status += game->Start();
 
 	std::cout << "Loaded with status: " << status << std::endl;

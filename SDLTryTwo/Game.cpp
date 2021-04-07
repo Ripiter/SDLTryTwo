@@ -6,14 +6,14 @@ Game::Game(char* _title)
 	player = nullptr;
 	backGroundImg = nullptr;
 }
-
+Text* txt;
 Game::~Game()
 {
 	delete backGroundImg;
 	delete player;
-
-
 	delete window;
+	delete txt;
+	TTF_Quit();
 }
 
 int Game::InitWindow()
@@ -75,6 +75,17 @@ int Game::InitRenderer()
 	return 0;
 }
 
+int Game::InitText()
+{
+	//Initialize SDL_ttf
+	if (TTF_Init() == -1)
+	{
+		printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
+		return -3;
+	}
+	return 0;
+}
+
 int Game::InitPng()
 {
 	int imgFlags = IMG_INIT_PNG;
@@ -99,11 +110,11 @@ int Game::Start()
 	backGroundImg->SetBlendMode(SDL_BLENDMODE_BLEND);
 	*/
 
-	Image* img = new Image("../img/Arrow.png", window->renderer->sdl_Renderer);
+	Image* img = new Image("../img/foo.png", window->renderer->sdl_Renderer);
 	player = new Player(_strdup("Player"), img, window->width / 2, window->height / 2);
 	player->playerAnimation = new Animation(player, player->entityImg, 4, 64);
-
-
+	txt = new Text("Hello there", { 0,0,0 });
+	imageTxt = new Image(txt, window->renderer->sdl_Renderer);
 
 	window->renderer->SetBackGroundColor(255, 0, 0, 1);
 
@@ -123,13 +134,18 @@ void Game::Update()
 			printf("Pressed escape");
 			quit = true;
 		}
-
+		if (Input::GetButtonDown(InputKey::e)) {
+			
+		}
 		
 		player->Update();
 		window->ClearScreen();
 
 		player->playerAnimation->Update();
 		window->renderer->RenderAnimation(player->playerAnimation);
+
+		window->renderer->RenderImage(imageTxt, window->width / 2, window->height / 2);
+
 
 		window->UpdateWindow();
 
