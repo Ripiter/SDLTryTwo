@@ -6,13 +6,13 @@ Game::Game(char* _title)
 	player = nullptr;
 	backGroundImg = nullptr;
 }
-Text* txt;
+
 Game::~Game()
 {
 	delete backGroundImg;
 	delete player;
 	delete window;
-	delete txt;
+	delete imageTxt;
 	TTF_Quit();
 }
 
@@ -110,11 +110,13 @@ int Game::Start()
 	backGroundImg->SetBlendMode(SDL_BLENDMODE_BLEND);
 	*/
 
-	Image* img = new Image("../img/foo.png", window->renderer->sdl_Renderer);
+	Image* img = new Image(window->renderer->sdl_Renderer);
+	img->LoadTexture("../img/foo.png");
+
 	player = new Player(_strdup("Player"), img, window->width / 2, window->height / 2);
 	player->playerAnimation = new Animation(player, player->entityImg, 4, 64);
-	txt = new Text("Hello there", { 0,0,0 });
-	imageTxt = new Image(txt, window->renderer->sdl_Renderer);
+	
+	imageTxt = new TextImage(new Text("Hello there", { 0,0,0 }), window->renderer->sdl_Renderer);
 
 	window->renderer->SetBackGroundColor(255, 0, 0, 1);
 
@@ -135,7 +137,7 @@ void Game::Update()
 			quit = true;
 		}
 		if (Input::GetButtonDown(InputKey::e)) {
-			
+			imageTxt->SetText("General kenobi");
 		}
 		
 		player->Update();
@@ -146,9 +148,6 @@ void Game::Update()
 
 		window->renderer->RenderImage(imageTxt, window->width / 2, window->height / 2);
 
-
 		window->UpdateWindow();
-
-		
 	}
 }

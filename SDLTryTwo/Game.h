@@ -3,6 +3,7 @@
 #include "Animation.h"
 #include "Player.h"
 #include "Input.h"
+#include "TextImage.h"
 class Game
 {
 private:
@@ -12,7 +13,7 @@ public:
 	Window* window;
 	Image* backGroundImg;
 	Player* player;
-	Image* imageTxt;
+	TextImage* imageTxt;
 
 	char* title;
 	Game(char* _title);
