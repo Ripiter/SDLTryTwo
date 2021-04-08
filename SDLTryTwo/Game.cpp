@@ -1,5 +1,5 @@
 #include "Game.h"
-Game::Game(char* _title)
+Game::Game(const char* _title)
 {
 	window = NULL;
 	title = _title;
@@ -103,6 +103,10 @@ int Game::Start()
 	window->FillWindow(NULL, SDL_MapRGB(window->sdl_ScreenSurface->format, 0xFF, 0xFF, 0xFF));
 	window->UpdateWindow();
 
+	TextImage* buttonImg = new TextImage(new Text("Yaaa", {0,0,0}), window->renderer->sdl_Renderer);
+	btn = new Button(_strdup("First button"), buttonImg, window->width / 2, window->height / 2);
+
+	Input::AddButton(btn);
 	/*
 	backGroundImg = new Image("../Img/Wall.png", window->renderer->sdl_Renderer);
 
@@ -127,7 +131,8 @@ int Game::Start()
 
 void Game::Update()
 {
-	//While application is running
+	SDL_Rect rect = { btn->position->x, btn->position->y, btn->entityImg->GetWidth(), btn->entityImg->GetHeight() };
+
 	while (!quit)
 	{
 		Input::UpdateKey();
@@ -145,8 +150,8 @@ void Game::Update()
 
 		player->playerAnimation->Update();
 		window->renderer->RenderAnimation(player->playerAnimation);
-
-		window->renderer->RenderImage(imageTxt, window->width / 2, window->height / 2);
+		//window->renderer->RenderImage(imageTxt, window->width / 2, window->height / 2);
+		window->renderer->RenderCustomEntity(btn);
 
 		window->UpdateWindow();
 	}

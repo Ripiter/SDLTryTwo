@@ -1,4 +1,5 @@
 #pragma once
+#include "Button.h"
 #include "Window.h"
 #include "Animation.h"
 #include "Player.h"
@@ -14,9 +15,9 @@ public:
 	Image* backGroundImg;
 	Player* player;
 	TextImage* imageTxt;
-
-	char* title;
-	Game(char* _title);
+	Button* btn;
+	const char* title;
+	Game(const char* _title);
 	~Game();
 
 	int InitWindow();

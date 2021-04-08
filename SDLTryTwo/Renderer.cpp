@@ -33,7 +33,8 @@ void Renderer::RenderImage(Image* img, int x, int y, SDL_Rect* clip, double angl
 
 void Renderer::RenderCustomEntity(RenderEntity* _entity)
 {
-	SDL_RenderCopy(sdl_Renderer, _entity->entityImg->sdl_ImageTexture, NULL, _entity->position);
+	SDL_Rect renderQuad = { _entity->position->x, _entity->position->y, _entity->entityImg->GetWidth(), _entity->entityImg->GetHeight() };
+	SDL_RenderCopy(sdl_Renderer, _entity->entityImg->sdl_ImageTexture, NULL, &renderQuad);
 }
 
 void Renderer::RenderAnimation(Animation* animation)
@@ -45,13 +46,13 @@ void Renderer::RenderAnimation(Animation* animation)
 
 void Renderer::DrawFillSquare(SDL_Rect* transform, Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 {
-	SDL_SetRenderDrawColor(sdl_Renderer, 0x00, 0xFF, 0x00, 0xFF);
+	SDL_SetRenderDrawColor(sdl_Renderer, r, g, b, a);
 	SDL_RenderFillRect(sdl_Renderer, transform);
 }
 
 void Renderer::DrawRectSquare(SDL_Rect* transform, Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 {
-	SDL_SetRenderDrawColor(sdl_Renderer, 0x00, 0xFF, 0x00, 0xFF);
+	SDL_SetRenderDrawColor(sdl_Renderer, r, g, b, a);
 	SDL_RenderDrawRect(sdl_Renderer, transform);
 }
 

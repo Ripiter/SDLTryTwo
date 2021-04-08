@@ -1,5 +1,7 @@
 #include "Input.h"
 
+std::vector<Button*> Input::buttons = {};
+
 bool Input::GetButtonDown(InputKey key)
 {
 	if (Input::keyPressed == (int)key) {
@@ -23,5 +25,24 @@ void Input::UpdateKey()
 		{
 			Input::keyPressed = e.key.keysym.sym;
 		}
+		if (e.type == SDL_MOUSEBUTTONDOWN)
+		{
+			int x, y;
+			SDL_GetMouseState(&x, &y);
+			MouseButtonPressed(x, y);
+		}
 	}
+}
+
+void Input::MouseButtonPressed(int x, int y)
+{
+	for (int i = 0; i < buttons.size(); i++)
+	{
+		buttons.at(i)->ButtonEvent(x, y);
+	}
+}
+
+void Input::AddButton(Button* btn)
+{
+	buttons.push_back(btn);
 }

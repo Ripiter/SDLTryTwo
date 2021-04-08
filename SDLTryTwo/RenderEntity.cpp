@@ -18,3 +18,4 @@ RenderEntity::~RenderEntity()
 {
 	delete entityImg;
 }
+

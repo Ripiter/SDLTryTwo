@@ -6,7 +6,7 @@ and may not be redistributed without written permission.*/
 #include <stdio.h>
 #include "Game.h"
 #include "Image.h"
-Game *game = new Game(_strdup("Not mario"));
+Game *game = new Game("Not mario");
 
 int main(int argc, char* args[])
 {
