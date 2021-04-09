@@ -36,17 +36,24 @@ void TextImage::ReloadTexture()
 
 		//Get rid of old surface
 		SDL_FreeSurface(textSurface);
+		textSurface = NULL;
 	}
 }
 
 void TextImage::SetText(std::string _text)
 {
+	if (text->text == _text)
+		return;
+
 	text->text = _text;
 	ReloadTexture();
 }
 
-void TextImage::SetText(std::string _text, SDL_Color _color)
+void TextImage::SetColor(Uint8 r, Uint8 g, Uint8 b)
 {
-	text->color = _color;
-	SetText(_text);
+	if (text->color.r == r && text->color.g == g && text->color.b == b)
+		return;
+
+	text->color = { r, g, b };
+	ReloadTexture();
 }

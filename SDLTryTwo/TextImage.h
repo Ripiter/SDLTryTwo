@@ -13,6 +13,7 @@ public:
 	~TextImage();
 	SDL_Texture* LoadText(Text* text);
 	void SetText(std::string _text);
-	void SetText(std::string _text, SDL_Color color);
+	void SetColor(Uint8 r, Uint8 g, Uint8 b) override;
+
 };
 

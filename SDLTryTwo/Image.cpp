@@ -48,7 +48,7 @@ void Image::FreeTexture()
 	}
 }
 
-void Image::SetColor(int red, int green, int blue)
+void Image::SetColor(Uint8 red, Uint8 green, Uint8 blue)
 {
 	SDL_SetTextureColorMod(sdl_ImageTexture, red, green, blue);
 }
@@ -68,10 +68,7 @@ void Image::SetBlendMode(SDL_BlendMode blendMode)
 SDL_Texture* Image::LoadTexture(const char* _path)
 {
 	FreeTexture();
-
-	//The final optimized image
-	SDL_Texture* optimizedSurface = NULL;
-
+	
 	//Load image at specified path
 	SDL_Surface* loadedSurface = IMG_Load(_path);
 	if (loadedSurface == NULL)

@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "Input.h"
 #include "TextImage.h"
+#include "Timer.h"
 class Game
 {
 private:
@@ -14,8 +15,8 @@ public:
 	Window* window;
 	Image* backGroundImg;
 	Player* player;
-	TextImage* imageTxt;
 	Button* btn;
+	TextImage* txtImage;
 	const char* title;
 	Game(const char* _title);
 	~Game();

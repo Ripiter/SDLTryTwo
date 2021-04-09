@@ -17,8 +17,8 @@ void Button::ButtonEvent(int x, int y)
 
 void Button::OnClick()
 {
-	TextImage* t = (TextImage*)entityImg;
-	t->SetText(t->text->text, {0, 255, 0});
+	//TextImage* t = (TextImage*)entityImg;
+	
     std::cout << entityName << " was pressed" << std::endl;
 }
 

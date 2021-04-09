@@ -20,7 +20,7 @@ public:
 	int GetWidth();
 	int GetHeight();
 	void FreeTexture();
-	void SetColor(int red, int green, int blue);
+	virtual void SetColor(Uint8 red, Uint8 green, Uint8 blue);
 	void SetAlpha(int alpha);
 	void SetBlendMode(SDL_BlendMode blendMode);
 };

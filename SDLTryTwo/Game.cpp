@@ -12,7 +12,7 @@ Game::~Game()
 	delete backGroundImg;
 	delete player;
 	delete window;
-	delete imageTxt;
+	delete txtImage;
 	TTF_Quit();
 }
 
@@ -103,13 +103,17 @@ int Game::Start()
 	window->FillWindow(NULL, SDL_MapRGB(window->sdl_ScreenSurface->format, 0xFF, 0xFF, 0xFF));
 	window->UpdateWindow();
 
-	TextImage* buttonImg = new TextImage(new Text("Yaaa", {0,0,0}), window->renderer->sdl_Renderer);
+	TextImage* buttonImg = new TextImage(new Text("Yaaa", {0,255,0}), window->renderer->sdl_Renderer);
+;
 	btn = new Button(_strdup("First button"), buttonImg, window->width / 2, window->height / 2);
 
 	Input::AddButton(btn);
-	/*
-	backGroundImg = new Image("../Img/Wall.png", window->renderer->sdl_Renderer);
 
+	txtImage = new TextImage(new Text("Time", { 0, 0, 0 }), window->renderer->sdl_Renderer);
+
+	/*
+	backGroundImg = new Image(window->renderer->sdl_Renderer);
+	backGroundImg->LoadTexture("../Img/Wall.png");
 	// we tell sdl that our back ground can become transparent
 	backGroundImg->SetBlendMode(SDL_BLENDMODE_BLEND);
 	*/
@@ -120,7 +124,6 @@ int Game::Start()
 	player = new Player(_strdup("Player"), img, window->width / 2, window->height / 2);
 	player->playerAnimation = new Animation(player, player->entityImg, 4, 64);
 	
-	imageTxt = new TextImage(new Text("Hello there", { 0,0,0 }), window->renderer->sdl_Renderer);
 
 	window->renderer->SetBackGroundColor(255, 0, 0, 1);
 
@@ -131,8 +134,7 @@ int Game::Start()
 
 void Game::Update()
 {
-	SDL_Rect rect = { btn->position->x, btn->position->y, btn->entityImg->GetWidth(), btn->entityImg->GetHeight() };
-
+	Timer timer;
 	while (!quit)
 	{
 		Input::UpdateKey();
@@ -141,17 +143,26 @@ void Game::Update()
 			printf("Pressed escape");
 			quit = true;
 		}
+
 		if (Input::GetButtonDown(InputKey::e)) {
-			imageTxt->SetText("General kenobi");
+			//startTime = SDL_GetTicks();
+			timer.Reset();
 		}
-		
+		//timer.Update();
+
+		//timeText.str("");
+		//timeText << "Milliseconds since start time " << SDL_GetTicks() - startTime;
+
+		txtImage->SetText("Time: " + std::to_string(timer.GetElapsedTime()));
+		//
+
 		player->Update();
 		window->ClearScreen();
 
+		window->renderer->RenderImage(txtImage, 50, 50);
 		player->playerAnimation->Update();
 		window->renderer->RenderAnimation(player->playerAnimation);
-		//window->renderer->RenderImage(imageTxt, window->width / 2, window->height / 2);
-		window->renderer->RenderCustomEntity(btn);
+		
 
 		window->UpdateWindow();
 	}
